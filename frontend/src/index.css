@@ -1,0 +1,170 @@
+/* layout */
+:root {
+--error: #e7195a;
+}
+
+
+header .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pages{
+  max-width: 1400px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+
+/* homepage */
+.home {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
+}
+.song-details {
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.song-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: rgb(113, 113, 253);
+}
+.song-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.song-details span {
+  /* position: absolute; */
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+
+ .delete {
+  background: rgb(113, 113, 253);
+  border: 0;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 10px;
+} 
+
+/* new workout form */
+label, input {
+  display: block;
+}
+input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+
+}
+
+select {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  
+}
+
+form button {
+  background: rgb(113, 113, 253);
+  border: 0;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+div.error {
+  padding: 10px;
+  background: #ffefef; 
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 2px 0;
+}
+
+
+/* modal css */
+.modal-container {
+  z-index: 100; /* Ensures the modal is displayed above other elements */
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Fills the entire viewport */
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in animation */
+    display: flex; /* Centers the modal content horizontally */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container.active { /* Applies styles when the modal is open */
+  opacity: 1; /* Makes the modal visible */
+}
+
+.modal-content {
+  
+  background-color: white; /* Modal content background color */
+  padding: 20px; /* Padding for inner content */
+  border-radius: 5px; /* Rounded corners for a softer look */
+  max-width: 500px; /* Sets a maximum width for the modal content */
+  width: 100%; /* Ensures the content fills the available modal space */
+}
+
+
+/* auth forms */
+form.signup, form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.logout:hover {
+  background: rgb(113, 113, 253);
+  border-color:rgb(113, 113, 253);
+ 
+}
+
+
