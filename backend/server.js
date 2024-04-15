@@ -16,7 +16,10 @@ import mongoose from "mongoose";
 const app = express();
 
 //cors
-app.use(cors());
+//I have exposed the X-Has-More header in the response
+app.use(cors({
+  exposedHeaders: ['X-Has-More'],
+}));
 
 //middlewares
 app.use(express.json());

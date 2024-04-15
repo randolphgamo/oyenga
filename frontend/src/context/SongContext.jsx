@@ -16,7 +16,7 @@ export function songsReducer(state, action) {
             }
         case 'CREATE_SONG':
             return {
-                //get the new song and append to the previous songs 
+                //get the new song and put it ontop of the previous songs 
                 songs: [action.payload, ...state.songs]
             }
         case 'DELETE_SONG':
@@ -32,6 +32,13 @@ export function songsReducer(state, action) {
                     
                     //songs: state.songs.map((song) => song._id === action.payload._id ? action.payload : song)
                 }
+                case 'FETCH_NEXT_PAGE':
+                    return {
+
+                        //append newly fetched songs to existing list
+                        songs: [...state.songs, ...action.payload]
+                    }
+                
         default:
             return state;
     }
@@ -43,7 +50,8 @@ export function SongContextProvider( { children } ) {
 
     //we pass to reducer a reducer fxn name called songsReducer
     const [state, dispatch] = useReducer(songsReducer, {
-        songs: null
+       // songs: null
+        songs: [],
     });
 
 

@@ -1,5 +1,5 @@
 ## Introduction
-An application that displays Gospel songs
+Oyenga is a a webapp that allows user to view gospel songs.
 It is implemented using the MERN stack : it has a backend built with node that provides the api.
 The frontend is built with React
 
@@ -17,12 +17,13 @@ React Context API
 * Add a gospel song
 * delete a gospel song
 * update a gospel song
+* Pagination (infinite scroll)
 * admin can authenticate
 
 ## Features to be added
 * Search functionality
-* Song rating
-* user profile management
+* Song rating (similar to colorhunt palette)
+* user profile management 
 * suggest a new song which fires a mail to admin. 
 
 ## Acknowledgements:

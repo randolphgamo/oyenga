@@ -26,6 +26,7 @@ function SongDetails({ song }) {
       title: data.title,
       artist: data.artist,
       genre: data.genre,
+      content: data.content
     };
 
     try {

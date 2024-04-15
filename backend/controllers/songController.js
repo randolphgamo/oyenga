@@ -3,9 +3,61 @@ import mongoose from "mongoose";
 
 //get all songs
 const getSongs = async (req, res) => {
-  const songs = await Song.find({});
+
+  //page number defaults to 1
+  const { searchTerm, page = 1 } = req.query; 
+
+
+  //this is needed to paginate
+  const pageSize = 6;
+
+  const skip = (page - 1) * pageSize;
+
+  let songs;
+
+  let totalSongsCount; // Variable to store total count
+
+
+  if (searchTerm) {
+    songs = await Song.find({
+      $or: [
+        { title: { $regex: searchTerm, $options: "i" } },
+        { content: { $regex: searchTerm, $options: "i" } },
+        // { artist: { $regex: searchTerm, $options: "i" } },
+      ],
+    })
+      .skip(skip)
+      .limit(pageSize);
+
+
+      // Get total count with search term
+      totalSongsCount = await Song.countDocuments({  
+        $or: [
+          { title: { $regex: searchTerm, $options: "i" } },
+          { content: { $regex: searchTerm, $options: "i" } },
+        ],
+      }); 
+  }
+
+  if (!searchTerm) {
+    songs = await Song.find({}).skip(skip).limit(pageSize);
+
+    // Get total count without search term
+    totalSongsCount = await Song.countDocuments(); 
+
+  }
+
+  // Determine if there are more pages
+  const hasMore = skip + pageSize < totalSongsCount; 
+
+// Set the header
+//did now want to send hasmore as an object as this 
+//will break my current frontend
+  res.set('X-Has-More', hasMore ? 'true' : 'false'); 
+
 
   res.status(200).json(songs);
+
 };
 
 //get a sing song
@@ -72,9 +124,9 @@ const updateSong = async (req, res) => {
   const song = await Song.findByIdAndUpdate(
     { _id: id },
     {
-      ...req.body,},
-      {new: true}
-    
+      ...req.body,
+    },
+    { new: true }
   );
 
   if (!song) {
