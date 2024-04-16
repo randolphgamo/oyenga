@@ -21,11 +21,10 @@ function Home() {
   const [hasMore, setHasMore] = useState(true);
 
 
-
+ 
 
   const fetchNextPage = async () => {
-    console.log(songs.length);
-    console.log(hasMore);
+    
 
     try {
       setIsLoading(true);
@@ -45,13 +44,9 @@ function Home() {
       //  setHasMore(response.headers["x-has-more"]);
       if (response.headers["x-has-more"] === "false") {
         setHasMore(false);
-      }
-
-      else {
+      } else {
         setHasMore(true);
       }
-
-
 
       setIsLoading(false);
     } catch (error) {
@@ -60,23 +55,24 @@ function Home() {
   };
 
   const handleSearch = async (e) => {
-
     e.preventDefault();
 
-       
+   
+    console.log(searchTerm);
+
+
     try {
       const response = await axios.get(
         `http://localhost:4000/api/songs?searchTerm=${searchTerm}`
       );
       dispatch({ type: "SET_SONGS", payload: response.data });
-      
+
       if (response.headers["x-has-more"] === "false") {
         setHasMore(false);
-      }
-
-      else {
+      } else {
         setHasMore(true);
       }
+
 
     } catch (error) {
       console.log(error);
@@ -118,9 +114,6 @@ function Home() {
             <i className="bi bi-search"></i>
           </button>
         </form>
-
-
-        
 
         <InfiniteScroll
           dataLength={songs.length}
