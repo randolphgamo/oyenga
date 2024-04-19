@@ -87,9 +87,11 @@ function SongForm() {
 
       <label>Genre:</label>
       <select value={genre} onChange={(e) => setGenre(e.target.value)}>
-        <option value=""> </option>
-        <option value="careme">Careme</option>
-        <option value="avent">Avent</option>
+      <option value=""> </option>
+                <option value="Careme">Careme</option>
+                <option value="Avent">Avent</option>
+                <option value="Esprit Saint">Esprit Saint</option>
+                <option value="Marie">Marie</option>
       </select>
 
       <label>Content:</label>
@@ -98,6 +100,8 @@ function SongForm() {
       <button>Add Song</button>
       {error && <div className="error">{error}</div>}
     </form>
+
+    
   );
 }
 

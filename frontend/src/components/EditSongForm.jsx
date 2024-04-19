@@ -30,10 +30,12 @@ const EditSongForm = ({ initialSong, onSubmit }) => {
       <input type="text" name="artist" onChange={handleChange} value={formData.artist} />
 
       <label>Genre:</label>
-      <select value={formData.genre} name="genre" onChange={handleChange}>
-        <option value=""> </option>
-        <option value="Careme">Careme</option>
-        <option value="Avent">Avent</option>
+      <select className="form-select" value={formData.genre} name="genre" onChange={handleChange}>
+      <option value=""> </option>
+                <option value="Careme">Careme</option>
+                <option value="Avent">Avent</option>
+                <option value="Esprit Saint">Esprit Saint</option>
+                <option value="Marie">Marie</option>
       </select>
 
       <label>Content:</label>

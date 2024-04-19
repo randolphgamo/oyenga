@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 const getSongs = async (req, res) => {
 
   //page number defaults to 1
-  const { searchTerm, page = 1 } = req.query; 
+  //genre also defaults to empty 
+  const { searchTerm, page = 1, genre = '' } = req.query; 
 
 
   //this is needed to paginate
@@ -19,28 +20,39 @@ const getSongs = async (req, res) => {
 
 
   if (searchTerm) {
-    songs = await Song.find({
-      $or: [
+
+    let query = { 
+      $or: [ 
         { title: { $regex: searchTerm, $options: "i" } },
         { content: { $regex: searchTerm, $options: "i" } },
-        // { artist: { $regex: searchTerm, $options: "i" } },
-      ],
-    })
+      ] 
+    }; 
+
+    // Add genre filter only if it's not empty 
+    if (genre !== '') { 
+      query.$and = [{ genre: genre }]
+    }
+
+
+    songs = await Song.find(query)
       .skip(skip)
-      .limit(pageSize);
+      .limit(pageSize).sort({title:1});
 
 
       // Get total count with search term
-      totalSongsCount = await Song.countDocuments({  
-        $or: [
-          { title: { $regex: searchTerm, $options: "i" } },
-          { content: { $regex: searchTerm, $options: "i" } },
-        ],
-      }); 
+      totalSongsCount = await Song.countDocuments(query); 
   }
 
   if (!searchTerm) {
-    songs = await Song.find({}).skip(skip).limit(pageSize);
+
+    // Modify query if genre is provided
+    let query = {}; // Start with an empty query object
+
+    if (genre !== '') {
+      query.genre = genre; // Add genre filter only if provided
+    } 
+
+    songs = await Song.find(query).skip(skip).limit(pageSize).sort({title: 1});
 
     // Get total count without search term
     totalSongsCount = await Song.countDocuments(); 
