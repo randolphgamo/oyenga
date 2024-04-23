@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import axios from "axios";
 import Spinner from "../components/Spinner";
+import { Modal } from "bootstrap";
 
 function Search() {
   const { songs, dispatch } = useSongsContext();
@@ -27,6 +28,10 @@ function Search() {
   //state for fetching next page loading status
   const [isLoading, setIsLoading] = useState(false);
 
+
+
+  
+
   const fetchNextPage = async () => {
     try {
       setIsLoading(true);
@@ -36,7 +41,7 @@ function Search() {
       //   }`
       // );
 
-      const currentPage = songs.length / 6 + 1; // Assuming pageSize of 10
+      const currentPage = songs.length / 6 + 1; // Assuming pageSize of 6
       const response = await axios.get(
         `http://localhost:4000/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}&page=${currentPage}`
       );
@@ -113,8 +118,8 @@ function Search() {
   return (
     <>
       <div className="d-flex flex-column flex-md-row">
-        <div className="d-flex border-end p-4 align-items-stretch">
-          <form className="d-flex flex-column gap-2" onSubmit={handleSearch}>
+        <div className="d-flex border-end p-4 align-items-stretch sticky-search">
+          <form className="d-flex flex-column gap-4" onSubmit={handleSearch}>
             <div className="d-flex align-items-center gap-3">
               <label className="text-nowrap">Recherche</label>
               <input
@@ -142,7 +147,7 @@ function Search() {
           </form>
         </div>
         <div className="flex-grow-1">
-          <div className="text-5xl m-5 border-bottom p-3 ">Les Résultats:<br/>
+          <div className="text-5xl border-bottom p-3 sticky-results-bar">Les Résultats:<br/>
           {searchResultsHeading} {genreResultsHeading}
           </div>
           

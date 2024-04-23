@@ -1,4 +1,6 @@
 import axios from "axios";
+import parse from 'html-react-parser';
+
 import { useSongsContext } from "../hooks/useSongsContext";
 import { useState } from "react";
 import EditSongForm from "./EditSongForm";
@@ -8,8 +10,29 @@ import { useAuthContext } from "../hooks/useAuthContext";
 function SongDetails({ song }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  const [isViewModalOpen, setIsViewModalOpen ] = useState(false);
+
+
+
   const { dispatch } = useSongsContext();
   const { user } = useAuthContext();
+
+
+  //to prevent scrolling when modal is active
+  if (isEditModalOpen || isViewModalOpen) {
+    document.body.style.overflow = "hidden";
+  }
+
+  else {
+    document.body.style.overflow = "unset";
+  }
+
+
+
+  const handleView = () => {
+    setIsViewModalOpen(true);
+  };
+  
 
 
   const handleEdit = () => {
@@ -78,10 +101,13 @@ function SongDetails({ song }) {
       </p>
 
       <span onClick={handleDelete} className="delete">
-        <i className="bi bi-trash"></i>
+        <i className="bi bi-trash" title="Delete"></i>
       </span>
       <span onClick={handleEdit}>
-        <i className="bi bi-pencil-square"></i>
+        <i className="bi bi-pencil-square" title="Edit"></i>
+      </span>
+      <span onClick={handleView}>
+        <i className="bi bi-binoculars" title="View"></i>
       </span>
 
       {/* Modal (conditionally rendered) */}
@@ -89,6 +115,15 @@ function SongDetails({ song }) {
         <Modal onClose={handleEditModalClose}>
           {/* Edit form content */}
           <EditSongForm initialSong={song} onSubmit={handleEditFormSubmit} />
+        </Modal>
+      )}
+
+      {/* Modal (conditionally rendered) */}
+      {isViewModalOpen && (
+        <Modal onClose={() => setIsViewModalOpen(false)}>
+          {/* view form content , we parse the content so that html elements are not displayed as plain text*/}
+          <h4>{song.title}</h4>
+          <p>{parse(song.content)}</p>
         </Modal>
       )}
     </div>

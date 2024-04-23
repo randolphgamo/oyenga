@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div className="container-fluid">
           <img src="./file-music.svg" alt="oyenga brand icon" height="30" />
           <Link className="navbar-brand" to="/">
@@ -23,8 +23,13 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link className="nav-link" aria-current="page" to="/">
                   Acceuil
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" aria-disabled="true" to="/search">
+                  Liste Alphabétique
                 </Link>
               </li>
 
@@ -64,13 +69,14 @@ function Navbar() {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" aria-disabled="true" to="/search">
-                  Liste Alphabétique des Chants
-                </Link>
-              </li>
+              
             </ul>
           </div>
+         
+          <Link className="nav-link" aria-disabled="true" to="/add">
+          Add Song
+          </Link>
+          
         </div>
       </nav>
       

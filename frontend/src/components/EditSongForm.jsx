@@ -1,5 +1,6 @@
-import React from "react";
 import { useState } from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Include CSS for styling
 
 const EditSongForm = ({ initialSong, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,9 @@ const EditSongForm = ({ initialSong, onSubmit }) => {
     content: initialSong.content
   });
 
+  const handleChange2 = (value) => {
+    setFormData({ ...formData, content: value });
+  }
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
@@ -32,14 +36,30 @@ const EditSongForm = ({ initialSong, onSubmit }) => {
       <label>Genre:</label>
       <select className="form-select" value={formData.genre} name="genre" onChange={handleChange}>
       <option value=""> </option>
-                <option value="Careme">Careme</option>
-                <option value="Avent">Avent</option>
-                <option value="Esprit Saint">Esprit Saint</option>
-                <option value="Marie">Marie</option>
+      <option value="Louange">LOUANGES ET ACTION DE GRACE</option>
+                <option value="Confiance">CONFIANCE – ESPERANCE</option>
+                <option value="Esprit Saint">ESPRIT SAINT</option>
+                <option value="Marie">MARIE</option>
       </select>
 
       <label>Content:</label>
-      <textarea value={formData.content} name="content" onChange={handleChange} />
+      {/* <textarea value={formData.content} name="content" onChange={handleChange} /> */}
+
+      <ReactQuill 
+        theme="snow" // Optional theme for styling
+        value={formData.content}
+        name="content"
+        onChange={handleChange2}
+        modules={{
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['link', 'image'],
+          ],
+        }}
+      />
+
 
       <button type="submit">Save Changes</button>
     </form>

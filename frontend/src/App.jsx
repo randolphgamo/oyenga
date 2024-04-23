@@ -13,6 +13,10 @@ import Footer from "./components/Footer";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import Search from "./pages/Search";
+import SongForm from "./components/SongForm";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const { user } = useAuthContext();
@@ -35,16 +39,24 @@ function App() {
             element={user ? <Admin /> : <Navigate to="/login" />}
           />
           <Route
+            path="/add"
+            element={user ? <SongForm /> : <Navigate to="/login" />}
+          />
+          
+          <Route
             path="/login"
             element={!user ? <Login /> : <Navigate to="/admin" />}
           />
+          
           <Route
             path="/signup"
             element={!user ? <Signup /> : <Navigate to="/admin" />}
           />
         </Routes>
+        <ToastContainer/>
      <Footer />
     </BrowserRouter>
+    
   );
 }
 
