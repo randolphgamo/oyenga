@@ -13,7 +13,7 @@ export const useSignup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/user/signup",
+        "/api/user/signup",
         { email, password },
         {
           headers: {

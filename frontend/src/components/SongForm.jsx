@@ -48,7 +48,7 @@ function SongForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/songs",
+        "/api/songs",
         song,
         {
           headers: {
@@ -70,7 +70,7 @@ function SongForm() {
       setError(null);
       toast.success("Song added successfully!", {
         position: "bottom-center",
-        autoClose: 3000, // Auto-closes after 3 seconds
+        autoClose: 2000, // Auto-closes after 3 seconds
         // ... other options
     }); 
 
@@ -106,7 +106,7 @@ function SongForm() {
                 <option value="Louange">LOUANGES ET ACTION DE GRACE</option>
                 <option value="Confiance">CONFIANCE – ESPERANCE</option>
                 <option value="Esprit Saint">ESPRIT SAINT</option>
-                <option value="Marie">Marie</option>
+                <option value="Marie">MARIE</option>
       </select>
 
       <label className="mt-3">Content:</label>

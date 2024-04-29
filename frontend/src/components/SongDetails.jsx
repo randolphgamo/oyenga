@@ -1,5 +1,5 @@
 import axios from "axios";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 import { useSongsContext } from "../hooks/useSongsContext";
 import { useState } from "react";
@@ -10,30 +10,21 @@ import { useAuthContext } from "../hooks/useAuthContext";
 function SongDetails({ song }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const [isViewModalOpen, setIsViewModalOpen ] = useState(false);
-
-
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 
   const { dispatch } = useSongsContext();
   const { user } = useAuthContext();
 
-
   //to prevent scrolling when modal is active
   if (isEditModalOpen || isViewModalOpen) {
     document.body.style.overflow = "hidden";
-  }
-
-  else {
+  } else {
     document.body.style.overflow = "unset";
   }
-
-
 
   const handleView = () => {
     setIsViewModalOpen(true);
   };
-  
-
 
   const handleEdit = () => {
     setIsEditModalOpen(true);
@@ -49,15 +40,16 @@ function SongDetails({ song }) {
       title: data.title,
       artist: data.artist,
       genre: data.genre,
-      content: data.content
+      content: data.content,
     };
 
     try {
       const response = await axios.patch(
-        `http://localhost:4000/api/songs/${song._id}`,
-        updatedSong, {
+        `/api/songs/${song._id}`,
+        updatedSong,
+        {
           headers: {
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -76,9 +68,10 @@ function SongDetails({ song }) {
 
   const handleDelete = async () => {
     const response = await axios.delete(
-      `http://localhost:4000/api/songs/${song._id}`, {
+      `/api/songs/${song._id}`,
+      {
         headers: {
-          'Authorization': `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       }
     );
@@ -100,14 +93,18 @@ function SongDetails({ song }) {
         {song.genre}
       </p>
 
-      <span onClick={handleDelete} className="delete">
-        <i className="bi bi-trash" title="Delete"></i>
-      </span>
-      <span onClick={handleEdit}>
-        <i className="bi bi-pencil-square" title="Edit"></i>
-      </span>
+      {user && (
+        <span onClick={handleDelete} className="delete">
+          <i className="bi bi-trash" title="Delete"></i>
+        </span>
+      )}
+      {user && (
+        <span onClick={handleEdit}>
+          <i className="bi bi-pencil-square" title="Edit"></i>
+        </span>
+      )}
       <span onClick={handleView}>
-        <i className="bi bi-binoculars" title="View"></i>
+        <i className="bi bi-binoculars" title="Voir le contenu"></i>
       </span>
 
       {/* Modal (conditionally rendered) */}

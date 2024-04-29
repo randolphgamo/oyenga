@@ -54,8 +54,12 @@ height: auto;}
     font-size: 0.9em;
     color: #555;
   }
-  .song-details span {
-    /* position: absolute; */
+
+  /* select only span that are direct children of song details/
+  /* as such the span in the quills are not selected */
+
+  .song-details>span {
+    /* position: absolute;  */
     top: 20px;
     right: 20px;
     cursor: pointer;
@@ -109,11 +113,11 @@ height: auto;}
   label, input {
    /* display: block; */
   }
-  input {
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 100%;
+  input:not(.login) {
+     padding: 10px; 
+     margin-top: 10px;
+    margin-bottom: 20px; 
+    width: 100%; 
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
@@ -187,19 +191,19 @@ height: auto;}
     background-color: white; /* Modal content background color */
     padding: 20px; /* Padding for inner content */
     border-radius: 5px; /* Rounded corners for a softer look */
-    max-width: 500px; /* Sets a maximum width for the modal content */
-    width: 100%; /* Ensures the content fills the available modal space */
+    max-width: 500px; /*Sets a maximum width for the modal content */
+     width: 100%;  /*Ensures the content fills the available modal space */
   }
 
     
   /* auth forms */
-  form.signup, form.login {
+   /* form.signup, form.login {
     max-width: 400px;
     margin: 40px auto;
     padding: 20px;
-    background: #fff;
+    background: #fffafa;
     border-radius: 4px;
-  }
+  } */
   
   .logout:hover {
     background: rgb(113, 113, 253);

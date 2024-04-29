@@ -3,9 +3,12 @@ import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 
 export const useLogin = () => {
+
+
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
+
 
   const login = async (email, password) => {
     setIsLoading(true);
@@ -13,7 +16,7 @@ export const useLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/user/login",
+        "/api/user/login",
         { email, password },
         {
           headers: {
@@ -29,6 +32,9 @@ export const useLogin = () => {
       dispatch({ type: "LOGIN", payload: response.data });
 
       setIsLoading(false);
+
+      // //navigate to the admin home page
+      // navigate("/chant", { replace: true });
 
     } catch (error) {
       setIsLoading(false);

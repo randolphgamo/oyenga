@@ -5,7 +5,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import Home from "./pages/Home";
 
-import Admin from "./pages/Admin";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -16,6 +15,7 @@ import Search from "./pages/Search";
 import SongForm from "./components/SongForm";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import About from "./pages/About";
 
 
 function App() {
@@ -31,13 +31,17 @@ function App() {
             element={<Home />}
           />
           <Route
-            path="/search"
+            path="/chants"
             element={<Search />}
           />
           <Route
+            path="/apropos"
+            element={<About />}
+          />
+          {/* <Route
             path="/admin"
             element={user ? <Admin /> : <Navigate to="/login" />}
-          />
+          /> */}
           <Route
             path="/add"
             element={user ? <SongForm /> : <Navigate to="/login" />}
@@ -45,12 +49,12 @@ function App() {
           
           <Route
             path="/login"
-            element={!user ? <Login /> : <Navigate to="/admin" />}
+            element={!user ? <Login /> : <Navigate to="/chants" />}
           />
           
           <Route
             path="/signup"
-            element={!user ? <Signup /> : <Navigate to="/admin" />}
+            element={!user ? <Signup /> : <Navigate to="/chants" />}
           />
         </Routes>
         <ToastContainer/>

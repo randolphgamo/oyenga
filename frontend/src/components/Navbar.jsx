@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
 
 function Navbar() {
+
+
+  const { user }  = useAuthContext();
+  const { logout } = useLogout();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -28,58 +39,51 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" aria-disabled="true" to="/search">
-                  Liste Alphabétique
+                <Link className="nav-link" aria-disabled="true" to="/chants">
+                  Chants
                 </Link>
               </li>
 
-              <li className="nav-item dropdown">
+              <li className="nav-item">
                 <Link
-                  className="nav-link dropdown-toggle"
-                  href="#"
+                  className="nav-link"
                   role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                   to="/apropos"
                 >
-                  Catégories
+                  À propos
                 </Link>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Avent
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Adoration
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Carême
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Autre
-                    </a>
-                  </li>
-                </ul>
+                
               </li>
               
             </ul>
+            {!user && (<Link className="nav-link" style={{ color: "gray"}} aria-disabled="true" to="/login" >
+            Admin
+            </Link>
+              
+            )}
+            
           </div>
-         
-          <Link className="nav-link" aria-disabled="true" to="/add">
-          Add Song
+          
+          {user && (
+          <>
+            <span>{user.email}</span>
+            
+            <Link className="nav-link mx-2" aria-disabled="true" to="/add">
+            Add Song
           </Link>
           
+            <button
+              className="btn btn-outline-primary me-2 logout"
+              type="button"
+              onClick={handleClick}
+            >
+              Logout
+            </button>{" "}
+          
+        
+           </> )}
         </div>
       </nav>
-      
     </>
   );
 }

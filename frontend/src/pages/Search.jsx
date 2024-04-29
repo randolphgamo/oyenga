@@ -5,7 +5,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import axios from "axios";
 import Spinner from "../components/Spinner";
-import { Modal } from "bootstrap";
 
 function Search() {
   const { songs, dispatch } = useSongsContext();
@@ -43,7 +42,7 @@ function Search() {
 
       const currentPage = songs.length / 6 + 1; // Assuming pageSize of 6
       const response = await axios.get(
-        `http://localhost:4000/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}&page=${currentPage}`
+        `/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}&page=${currentPage}`
       );
 
       dispatch({ type: "FETCH_NEXT_PAGE", payload: response.data });
@@ -78,7 +77,7 @@ function Search() {
 
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}`
+        `/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}`
       );
       dispatch({ type: "SET_SONGS", payload: response.data });
 
@@ -96,7 +95,7 @@ function Search() {
     const fetchSongs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/songs?searchTerm=${searchTerm}`,
+          `/api/songs?searchTerm=${searchTerm}`,
           {
             headersResponse: true,
           }
@@ -136,18 +135,18 @@ function Search() {
                 onChange={(e) => setSelectedGenre(e.target.value)}
                 className="form-select"
               >
-                <option value=""> </option>
-                <option value="Careme">Careme</option>
-                <option value="Avent">Avent</option>
-                <option value="Esprit Saint">Esprit Saint</option>
-                <option value="Marie">Marie</option>
+                <option value="">TOUT LES CHANTS </option>
+                <option value="Louange">LOUANGES ET ACTION DE GRACE</option>
+                <option value="Confiance">CONFIANCE – ESPERANCE</option>
+                <option value="Esprit Saint">ESPRIT SAINT</option>
+                <option value="Marie">MARIE</option>
               </select>
             </div>
             <button className="mt-3">Rechercher</button>
           </form>
         </div>
         <div className="flex-grow-1">
-          <div className="text-5xl border-bottom p-3 sticky-results-bar">Les Résultats:<br/>
+          <div className="text-5xl border-bottom p-3 sticky-results-bar">Les Résultats (par Ordre Alphabétique): <br/>
           {searchResultsHeading} {genreResultsHeading}
           </div>
           
