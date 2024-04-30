@@ -7,6 +7,9 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 
 function Search() {
+
+  const backend = process.env.VITE_API_URL || "http://localhost:4000";
+
   const { songs, dispatch } = useSongsContext();
 
   //to implement search
@@ -42,7 +45,7 @@ function Search() {
 
       const currentPage = songs.length / 6 + 1; // Assuming pageSize of 6
       const response = await axios.get(
-        `/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}&page=${currentPage}`
+        `${backend}/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}&page=${currentPage}`
       );
 
       dispatch({ type: "FETCH_NEXT_PAGE", payload: response.data });
@@ -77,7 +80,7 @@ function Search() {
 
     try {
       const response = await axios.get(
-        `/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}`
+        `${backend}/api/songs?searchTerm=${searchTerm}&genre=${selectedGenre}`
       );
       dispatch({ type: "SET_SONGS", payload: response.data });
 
@@ -95,7 +98,7 @@ function Search() {
     const fetchSongs = async () => {
       try {
         const response = await axios.get(
-          `/api/songs?searchTerm=${searchTerm}`,
+          `${backend}/api/songs?searchTerm=${searchTerm}`,
           {
             headersResponse: true,
           }

@@ -3,6 +3,9 @@ import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 
 export const useSignup = () => {
+
+  const backend = process.env.VITE_API_URL || "http://localhost:4000";
+
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
@@ -13,7 +16,7 @@ export const useSignup = () => {
 
     try {
       const response = await axios.post(
-        "/api/user/signup",
+        `${backend}/api/user/signup`,
         { email, password },
         {
           headers: {

@@ -4,6 +4,8 @@ import axios from "axios";
 
 export const useLogin = () => {
 
+  const backend = process.env.VITE_API_URL || "http://localhost:4000";
+
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -16,7 +18,7 @@ export const useLogin = () => {
 
     try {
       const response = await axios.post(
-        "/api/user/login",
+        `${backend}/api/user/login`,
         { email, password },
         {
           headers: {

@@ -9,6 +9,8 @@ import 'react-quill/dist/quill.snow.css'; // Include CSS for styling
 
 function SongForm() {
 
+  const backend = process.env.VITE_API_URL || "http://localhost:4000";
+
   const { dispatch } = useSongsContext();
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
@@ -48,7 +50,7 @@ function SongForm() {
 
     try {
       const response = await axios.post(
-        "/api/songs",
+        `${backend}/api/songs`,
         song,
         {
           headers: {

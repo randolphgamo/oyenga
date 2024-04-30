@@ -8,6 +8,9 @@ import Modal from "./Modal";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 function SongDetails({ song }) {
+
+  const backend = process.env.VITE_API_URL || "http://localhost:4000";
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -45,7 +48,7 @@ function SongDetails({ song }) {
 
     try {
       const response = await axios.patch(
-        `/api/songs/${song._id}`,
+        `${backend}/api/songs/${song._id}`,
         updatedSong,
         {
           headers: {
